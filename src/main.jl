@@ -5,6 +5,7 @@
 import Pkg
 
 Pkg.instantiate(verbose = true)
+Pkg.precompile(timing = true)
 
 # Load packages:
 
