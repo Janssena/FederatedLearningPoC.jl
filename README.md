@@ -18,7 +18,7 @@ Each node should have its own local data set. This specific model performs a loc
 to that node. The central node thus only needs to aggregate the data by concatenating the results from each node. Alternatively,
 the central node stores the result from each node in a object pointing to that specific node.
 
-An example in Julia code:
+An example in pseudo-code:
 
 ```julia
 results = map(nodes) do node
