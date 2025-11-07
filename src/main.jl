@@ -1,14 +1,4 @@
-# Download & precompile packages:
-
-@info "Instantiating project..."
-
-import Pkg
-
-Pkg.instantiate(verbose = true)
-Pkg.precompile(timing = true)
-
 # Load packages:
-
 @info "Loading packages..."
 
 import Random
@@ -24,7 +14,6 @@ include("lib/helpers.jl");
 @info "All packages loaded successfully."
 
 # Run main:
-
 PATHS = handle_args(ARGS)
 
 rng = Random.Xoshiro(42)
@@ -42,6 +31,5 @@ JSON.json(PATHS.ckpt, ps_opt, pretty = true)
 println("Task ran successfully!")
 
 # Exit:
-
 println("Exiting...")
 exit()
