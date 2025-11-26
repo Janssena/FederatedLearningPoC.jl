@@ -30,4 +30,3 @@ PrecompileTools.@setup_workload begin
     end
 end
 println("Done!")
-exit()
