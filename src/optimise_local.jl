@@ -1,6 +1,5 @@
 # Load packages:
 @info "Loading packages..."
-
 import Random
 import JSON
 
@@ -9,7 +8,7 @@ using DeepCompartmentModels
 
 include("lib/data.jl");
 include("lib/optimise.jl");
-include("lib/helpers.jl");
+include("lib/args.jl");
 
 @info "All packages loaded successfully."
 
@@ -25,8 +24,8 @@ population = load_data(PATHS.data)
 ps_opt = run_optimisation(population)
 @info "Optimisation completed!"
 
-@info "Saving checkpoint to $(PATHS.ckpt)"
-JSON.json(PATHS.ckpt, ps_opt, pretty = true)
+@info "Saving output to $(PATHS.output)"
+JSON.json(PATHS.output, ps_opt, pretty = true)
 
 println("Task ran successfully!")
 

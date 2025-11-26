@@ -1,5 +1,7 @@
 import LinearAlgebra: Symmetric
 
+using DataFrames
+
 cv_to_omega2(cv) = log((cv/100)^2 + 1)
 
 """

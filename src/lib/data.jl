@@ -8,7 +8,7 @@ function load_data(path::AbstractString)
 
     indvs = Vector{AbstractIndividual}(undef, length(df_group))
     for (i, group) in enumerate(df_group)
-        x = Vector{Float32}(group[1, [:wt, :age]])
+        x = Vector{Float32}(group[1, [:ffm, :vwf]])
         I = Matrix{Float32}(group[isone.(group.mdv), [:time, :amt, :rate, :duration]])
         callback = generate_dosing_callback(I, Float32)
         ty = group[iszero.(group.mdv), [:time, :dv]]

@@ -2,7 +2,9 @@ import Random
 import CSV
 
 include("pk.jl");
+include("helpers.jl");
 
+using Bijectors
 using DataFrames
 using Distributions
 using DeepCompartmentModels
@@ -10,7 +12,10 @@ using DeepCompartmentModels
 rng = Random.Xoshiro(42)
 
 nhanes = DataFrame(CSV.File("data/NHANES.csv", missingstring="NA"))
-filter!(row -> row.Age <= 18 && row.Gender == "male" && !ismissing(row.Weight), nhanes)
+filter!(row -> row.Age <= 18 && row.Gender == "male" && !ismissing(row.Weight) && !ismissing(row.Length), nhanes)
+nhanes[!, :Bloodgroup_O] = rand(rng, Categorical([0.57, 0.43]), nrow(nhanes)) .- 1 # p(bloodgroup = O) is approx 0.43
+nhanes[!, :VWFAg] = sample_vwf.(rng, nhanes.Age, nhanes.Bloodgroup_O)
+nhanes[!, :FFM] = ffm_males.(nhanes.Weight, nhanes.Length, nhanes.Age)
 
 N = (126, 57, 294, 12) # number of subjects per centre
 
@@ -21,7 +26,7 @@ for i in eachindex(N)
     elseif i == 2
         model = nesterov
         tspan = (-0.1, 168.)
-    elseif i == 3    
+    elseif i == 3
         model = mcenenyking
     else
         model = zhang
@@ -29,7 +34,7 @@ for i in eachindex(N)
     prob = ODEProblem(two_comp!, zeros(2), tspan)
     
     ids = sort(rand(rng, 1:nrow(nhanes), N[i]))
-    x = nhanes[ids, [:Weight, :Age]]
+    x = nhanes[ids, [:Weight, :Length, :Age, :FFM, :Bloodgroup_O, :VWFAg]]
 
     z, σ = model(rng, x)
 
@@ -62,7 +67,11 @@ for i in eachindex(N)
             dv = [0; y],
             mdv = [1; zero(y)],
             wt = x[j, :Weight],
+            ht = x[j, :Length],
             age = x[j, :Age],
+            ffm = x[j, :FFM],
+            bgo = x[j, :Bloodgroup_O],
+            vwf = x[j, :VWFAg],
             cl = z[1, j],
             v1 = z[2, j],
             q = z[3, j],
