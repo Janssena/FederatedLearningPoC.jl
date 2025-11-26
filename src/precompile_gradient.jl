@@ -9,6 +9,7 @@ using DeepCompartmentModels
 include("lib/data.jl");
 include("lib/model.jl");
 
+@info "Precompiling gradient call..."
 PrecompileTools.@setup_workload begin
     rng = Random.Xoshiro()
     I = Float32[0 1000 60 * 1000 1/60]
@@ -28,3 +29,5 @@ PrecompileTools.@setup_workload begin
         grad = gradient(dcm, population, ps, st)
     end
 end
+println("Done!")
+exit()

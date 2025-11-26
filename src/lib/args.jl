@@ -1,5 +1,6 @@
 # TODO: Check for more elegant argument handling package
 function handle_args(args::AbstractVector{<:String})
+    println("Received following arguments: $args")
     data_path_idx = findfirst(Base.Fix2(startswith, "--data="), args)
     if isnothing(data_path_idx)
         data_path_idx = findfirst(endswith(".csv"), args)
