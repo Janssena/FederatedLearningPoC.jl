@@ -24,7 +24,7 @@ function handle_args(args::AbstractVector{<:String})
         ))
     end
     output_path = split(args[output_path_idx], "--out=")[end]
-    @assert endswith(lowercase(output_path), ".json") "output path does not point to JSON file"
+    @assert endswith(lowercase(output_path), ".json") || endswith(lowercase(output_path), "jld2") "output path does not point to JSON or JLD2 file"
 
     if !(any(startswith.("--ps=", args)))
         return (data = data_path, output = output_path)
