@@ -47,3 +47,14 @@ Here, the user is expected to supply three arguments:
 `OUTPUT_PATH`: the path where the resulting .jld2 file is saved. 
 
 `PARAM_PATH`: the path where the current parameter object file is saved. Initial parameters are provided in the `/data` folder.
+
+The docker implementation can be build and ran as follows:
+
+```bash
+$ docker build -t global-update docker/global/.
+$ docker run \
+    -e DATA_PATH="data/simulated_data_centre_1.csv" \
+    -e OUTPUT_PATH="checkpoints/gradient_centre_1.jld2" \
+    -e PARAM_PATH="data/parameters_centre_1.jld2" \
+    global-update
+```
