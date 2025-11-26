@@ -13,4 +13,4 @@ RUN git checkout 6156ffda071f7052079578a408b011c031c2dbdd
 RUN julia -e 'using Pkg; Pkg.activate("."); Pkg.instantiate(); Pkg.precompile(timing = true)'
 
 # Run 
-CMD ["sh", "-c", "julia --project=. src/main.jl --data ${DATA_PATH} --ckpt ${CKPT_PATH}"]
+CMD ["sh", "-c", "julia --project=. src/optimise_local.jl --data ${DATA_PATH} --out ${OUT_PATH}"]
