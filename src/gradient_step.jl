@@ -15,7 +15,7 @@ include("lib/args.jl");
 
 # Run main:
 PATHS = handle_args(ARGS)
-if !(:ps in keys(PATHS))
+if !(:parameters in keys(PATHS))
     throw(ErrorException("Parameter path not supplied to script. Specify file location via --ps argument: `julia --project=. --ps=/my/parameters.jld2`"))
 end
 
