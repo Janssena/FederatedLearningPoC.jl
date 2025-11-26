@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
 # Clone github repo
 WORKDIR /project
 RUN git clone --branch main --single-branch https://github.com/Janssena/FederatedLearningPoC.jl.git .
-RUN git checkout 49318a358c689d9a3021adbc94abbbe0913a10ef
+RUN git checkout 5ab1ee11082eeba5f2d71440ae12fbda7ea13235
 
 # Install Julia dependencies
 RUN julia -e 'using Pkg; Pkg.activate("."); Pkg.instantiate(); Pkg.precompile(timing = true); include("src/precompile_gradient.jl")'
