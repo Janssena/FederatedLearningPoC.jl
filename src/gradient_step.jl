@@ -23,7 +23,7 @@ end
 population = load_data(PATHS.data)
 dcm = load_model()
 
-ps, st = parse_parameters(ARGS.parameters)
+ps, st = parse_parameters(PATHS.parameters)
 @assert length(population) == length(ps.phi.μ) "Number of data examples do not match with number of random effect parameters"
 
 @info "Calculating gradient..."
